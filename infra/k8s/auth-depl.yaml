@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth-depl
+
+spec:
+  replicas: 1
+  selector: 
+    matchLabels:
+      app: auth
+  template:
+    metadata:
+      labels: 
+        app: auth
+    spec:
+      containers:
+        - name: findpartnerauth
+          image: rohithputha/findpartnerauth
+          imagePullPolicy: Never
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: auth-depl-srv
+spec:
+  selector:
+    app: auth
+  ports:
+  - port: 3000
+    targetPort: 3000
+    protocol: TCP

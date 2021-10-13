@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: findparterauthmongo-depl
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: findpartnerauthmongo
+  template:
+    metadata:
+      labels:
+        app: findpartnerauthmongo
+    spec:
+      containers:
+        - name: findpartnerauthmongo
+          image: mongo
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo-depl-srv
+spec:
+  selector:
+    app: mongo-depl
+  ports:
+    - port: 27017
+      targetPort: 27017
+      protocol: TCP
+      
