@@ -25,9 +25,10 @@ metadata:
   name: mongo-depl-srv
 spec:
   selector:
-    app: mongo-depl
+    app: findpartnerauthmongo
   ports:
     - port: 27017
       targetPort: 27017
       protocol: TCP
+      name: auth
       
