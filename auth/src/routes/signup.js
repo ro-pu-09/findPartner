@@ -29,7 +29,16 @@ router.post('/api/users/signup',
             password:req.body.password
          })
        
-        
+        const existingUser=await user.findOne({
+            email:req.body.email
+        })
+
+        if(existingUser){
+            const customErrorObj=new customError('User already exists')
+            customErrorObj.setStatusCode(405)
+            return next(customErrorObj)
+        }
+
         await newuser.save()
         
         const Jtoken=jwt.sign({

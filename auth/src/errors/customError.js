@@ -15,5 +15,8 @@ class customError extends Error{
             message:this.message,
         }]
     }
+    setStatusCode(statusCode){
+        this.statusCode=statusCode
+    }
 }
 module.exports=customError
