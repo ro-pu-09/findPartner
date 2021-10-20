@@ -8,7 +8,7 @@ const errorHandler=(err,req,res,next)=>{
    else{
    res.status(404).send([
    {
-      message:err
+      message:"Unknown error detected..."
    }
    ])
    }

@@ -4,7 +4,6 @@ class customError extends Error{
     constructor(message){
         super(message)
         this.message = message
-        this.statusCode=400
        //console.log("this of the custom error-->",Object.getPrototypeOf(this)===customError.prototype)
         
         this.message=message
@@ -14,9 +13,6 @@ class customError extends Error{
         return [{
             message:this.message,
         }]
-    }
-    setStatusCode(statusCode){
-        this.statusCode=statusCode
     }
 }
 module.exports=customError
