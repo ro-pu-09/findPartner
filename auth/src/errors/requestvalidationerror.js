@@ -3,7 +3,7 @@ const customError = require("./customError");
 class RequestValidationError extends customError{
    constructor(errorsArray){
        super("request validation error")
-       super.statusCode=404
+       super.setStatusCode(402)
        console.log(this.statusCode)
        this.errorsArray=errorsArray
        

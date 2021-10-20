@@ -8,7 +8,10 @@ const userScheme=mongoose.Schema({
 })
 userScheme.set('toJSON',{
     transform: function(document, returnObj){
-       returnobj=delete returnObj.password   
+       delete returnObj.password   
+       delete returnObj.__v
+       returnObj.id=returnObj._id
+       delete returnObj._id
     }
 })
 

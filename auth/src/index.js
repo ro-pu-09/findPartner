@@ -1,19 +1,25 @@
 const express=require('express')
 const customError = require('./errors/customError')
 const RequestValidationError = require('./errors/requestvalidationerror')
+
 const errorHandler = require('./middlewares/errors')
 const signupRouter=require('./routes/signup')
+const signinRouter=require('./routes/signin')
+const currentuserRouter=require('./routes/currentuser')
+const signoutRouter=require('./routes/signout')
+
 const mongoose=require('mongoose')
 const cookiesession =require('cookie-session')
 
 
-
 const app=express()
 app.set('trust-proxy',true)
+
+
 app.use(cookiesession({
     name:'authSession',
     signed:false,
-    secure:true,
+    secure:false,
 }))
 
 app.use(express.json())
@@ -21,6 +27,9 @@ app.use(express.json())
 
 
 app.use(signupRouter)
+app.use(signinRouter)
+app.use(currentuserRouter)
+app.use(signoutRouter)
 app.use(errorHandler)
 
 

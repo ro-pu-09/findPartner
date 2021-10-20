@@ -6,6 +6,8 @@ const RequestValidationError = require('../errors/requestvalidationerror')
 const user = require('../models/user')
 const jwt=require('jsonwebtoken')
 const password = require('../services/password')
+const RequestHandler = require('../middlewares/requestvalidation')
+
 router.post('/api/users/signup',
 
     validator.body('email').isEmail(),
@@ -14,6 +16,8 @@ router.post('/api/users/signup',
 
     validator.body('name').notEmpty(),
 
+    RequestHandler,
+    
     async (req,res,next)=>{
       
        const errors = validator.validationResult(req)

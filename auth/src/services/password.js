@@ -9,9 +9,12 @@ class PasswordHash{
     }
 
     async compare(password,savedPassword){
+        console.log(password,savedPassword)
         const [hashedPassword,salt]=savedPassword.split('.')
+        console.log(hashedPassword)
         const buf=await scryptAsync(password,salt,64)
-        return buf===hashedPassword
+        console.log(buf.toString('hex'))
+        return buf.toString('hex')===hashedPassword
         
     }
 }
