@@ -2,7 +2,6 @@ POST http://findpartner.in/api/users/signup/ HTTP/1.1
 Content-Type: application/json
 
 {
-    "email":"rohitputha@gmail.com",
-    "password":"hvyamfdgjdfgkdf",
-    "name":"Rohith Putha"
+    "email":"rohitputhacom",
+    "password":"hvyamfdgjdfgkdf"
 }

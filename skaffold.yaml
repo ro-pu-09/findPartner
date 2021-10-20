@@ -18,11 +18,3 @@ build:
         manual:
           - dest: .
             src: src/**/*.js
-    - image: rohithputha/findpartnerprofile
-      context: profile
-      docker:
-        dockerfile: Dockerfile
-      sync:
-        manual:
-          - dest: .
-            src: src/**/*.js
