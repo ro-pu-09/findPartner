@@ -10,6 +10,16 @@ const userScheme=mongoose.Schema({
     pastproject: [String],
     projectidea:[String],
 })
+
+userScheme.pre('findOneAndUpdate',function(next){
+   this.update({},{
+       $inc:{
+           __v:1
+       }
+   },
+   next())
+})
+
 const profileModel=mongoose.model('userProfileCollection',userScheme)
 
 module.exports=profileModel
