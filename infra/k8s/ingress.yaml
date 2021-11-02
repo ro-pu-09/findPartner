@@ -24,3 +24,10 @@ spec:
                 name: profile-depl-srv
                 port:
                   number: 3001
+          - path: /api/recommendation/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: recommendation-depl-srv
+                port:
+                  number: 3002

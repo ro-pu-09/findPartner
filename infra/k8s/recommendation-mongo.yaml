@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: recommendation-mongo
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: recommongo
+  template:
+    metadata:
+      labels:
+        app: recommongo
+    
+    spec:
+      containers:
+        - name: recommendationmongo
+          image: mongo
+
+---
+
+apiVersion: v1
+kind: Service
+metadata: 
+  name: recommendation-mongo-srv
+spec:
+  selector:
+    app: recommongo
+  ports:
+    - port: 27017
+      targetPort: 27017
+      protocol: TCP
+  
+
+    
+    
+    
+    

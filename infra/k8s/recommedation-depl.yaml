@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: recommendation-depl
+
+spec:
+  replicas: 1
+  selector: 
+    matchLabels:
+      app: recommendation
+  template:
+    metadata:
+      labels: 
+        app: recommendation
+    spec:
+      containers:
+        - name: findpartnerrecommend
+          image: rohithputha/findpartnerrecommendation
+          imagePullPolicy: Never
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: recommendation-depl-srv
+spec:
+  selector:
+    app: recommendation
+  ports:
+  - port: 3002
+    targetPort: 3002
+    protocol: TCP
