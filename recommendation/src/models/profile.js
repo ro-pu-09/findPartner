@@ -5,6 +5,7 @@ const profileSchema=mongoose.Schema({
     email:String,
     name: String,
     profile: String,
+    college:String,
     liked:[String],
     recommended:[String]
 })

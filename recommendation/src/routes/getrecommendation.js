@@ -14,6 +14,9 @@ router.get('/api/recommendation/',
   createProfile,
   async (req,res,next)=>{
       
+      if(!req.profile.college){
+        return next(new customError("college not provided"))
+      }
       const recommendedProfiles=await profileModel.find({
         liked:{
           $nin: req.profile.liked,
@@ -24,7 +27,7 @@ router.get('/api/recommendation/',
         authid:{
           $ne: req.profile.authid
         },
-        
+
 
       }).limit(20).exec(function(err,payload){
           if(err) return next(new customError("error retrieving data"))

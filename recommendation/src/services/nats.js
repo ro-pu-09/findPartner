@@ -11,17 +11,36 @@ class natsServer{
     getNatsClient(){
         return this.sc
     }
-    setOptions(waitTime){  // add additional options when required...
-        this.options.setAckWait(waitTime)
-    }
-    subscribe(subscription){
-        console.log()
-        const subs =this.sc.subscribe(subscription,this.options)
-        subs.on('message',(msg)=>{
-            console.log("received message --> recommendation service ",msg.getData())
-            subscribeObj.routeSubscriptons(subscription,msg)
-        })
+    getOptions(){
+        return this.options
     }
 }
 
-module.exports= new natsServer()
+
+class natsSubscriptionSet {
+    constructor(client,options,durableName,queueGroup,subscription,waitTime){
+        if (waitTime) options.setAckWait(waitTime)
+        options.setDeliverAllAvailable()
+        options.setDurableName(durableName)
+        this.client=client
+        this.options=options
+        this.queueGroup=queueGroup
+        this.subscription=subscription
+        this.subscribe()
+    }
+
+    subscribe(){
+        console.log("Listening for "+this.subscription)
+        const subs =this.client.subscribe(this.subscription,this.queueGroup,this.options)
+        subs.on('message',(msg)=>{
+            console.log("received message --> recommendation service ",msg.getData())
+            subscribeObj.routeSubscriptons(this.subscription,msg)
+        })
+    }
+    
+}
+
+module.exports={
+    natsServer:new natsServer(),
+    natsSubscriptionSet:natsSubscriptionSet
+}

@@ -2,7 +2,7 @@ const express=require('express')
 const cookieSessioon=require('cookie-session')
 const mongoose=require('mongoose')
 
-const natsServer=require('./services/nats')
+const nats=require('./services/nats')
 const errorhandling = require('./middlewares/errors')
 const recommedationRouter=require('./routes/getrecommendation')
 
@@ -22,12 +22,14 @@ app.use(errorhandling)
 
 
 function start(){
-    natsServer.getNatsClient().on('connect',()=>{
+    nats.natsServer.getNatsClient().on('connect',()=>{
 
        mongoose.connect('mongodb://recommendation-mongo-srv:27017').then((response)=>{
            console.log("mongodb connected --> recommendation service")
            app.listen(3002,()=>{
-            natsServer.subscribe('profile:updated')
+            //natsServer.subscribe('profile:updated','')
+            setSubscriptions()
+
             console.log('listening in 3002')
            })
         }).catch((err)=>{
@@ -35,6 +37,12 @@ function start(){
         })
         
     })
+}
+
+function setSubscriptions(){
+      const client=nats.natsServer.getNatsClient()
+      const options= nats.natsServer.getOptions()
+      new nats.natsSubscriptionSet(client,options,'updateProfileDurable','updateProfileQueueGrp','profile:updated')
 }
 
 start()

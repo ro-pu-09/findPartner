@@ -20,9 +20,10 @@ class subscription {
         await createProfileSrv(savedProfile,updateProfile.authid,updateProfile.email, updateProfile.name)
         const newProfile=await profileModel.findOneAndUpdate({
             __v:{$lte : updateProfile.__v},
-            authid: updateProfile.authid
+            authid: updateProfile.authid 
         },{
             profile: JSON.stringify(updateProfile),
+            college: updateProfile.college,
             __v: updateProfile.__v
         },
         {
