@@ -31,3 +31,10 @@ spec:
                 name: recommendation-depl-srv
                 port:
                   number: 3002
+          - path: /api/matcher/?(.*)
+            pathType: Prefix
+            backend:
+              service: 
+                name: matcher-depl-srv
+                port:
+                  number: 3003

@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: matcher-depl
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: matcher
+  template:
+    metadata:
+      labels:
+        app: matcher
+    
+    spec:
+      containers:
+        - name: matcher-cont
+          image: rohithputha/findpartnermatcher
+          imagePullPolicy: Never
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: matcher-depl-srv
+
+spec:
+  selector:
+    app: matcher
+  
+  ports:
+    - port: 3003
+      targetPort: 3003
+      protocol: TCP

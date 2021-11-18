@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: matcher-mongo-depl
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: matcher-mongo
+  
+  template:
+    metadata:
+      labels:
+        app: matcher-mongo
+    
+    spec:
+      containers:
+        - name: matchermongo
+          image: mongo
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: matcher-mongo-srv
+
+spec:
+  selector:
+    app: matcher-mongo
+  ports:
+    - port: 27017
+      targetPort: 27017
+      protocol: TCP
+
+
